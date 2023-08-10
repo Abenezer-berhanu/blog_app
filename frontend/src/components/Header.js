@@ -9,15 +9,13 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
   const [value, setValue] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const dispatch = useDispatch();  
 
   const handleLogout = () => {
     dispatch(logout())
@@ -37,6 +35,7 @@ export default function Header() {
             >
               <Tab LinkComponent={Link} to="/blogs" label="All Blogs" />
               <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
+              <Tab LinkComponent={Link} to="/myBlogs/add" label="Add Blogs" />
             </Tabs>
           </Box>
         )}

@@ -28,14 +28,16 @@ export default function Auth() {
         email : value.email,
         password : value.password
       })
-      console.log(res)
+      if(!type) {
+        const id = res.data.user._id
+        localStorage.setItem("user_id", id)
+      }
       if(res.status === 200 || res.statusText === "OK"){
         dispatch(login())
         navigate('/blogs')
       }
       if(res.status === 201 || res.statusText === "Created"){
         setIsSignup(!isSignup)
-        console.log('signed up')
       }
     } catch (error) {
       console.log(error.message)
