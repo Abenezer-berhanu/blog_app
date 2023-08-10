@@ -97,8 +97,8 @@ const deleteById = async (req, res) => {
   const id = req.params.id;
 
   const user = await Blog.findByIdAndRemove(id).populate("user");
-  await user.user.blogs.pull(user)
-  user.user.save()
+  await user.user.blogs.pull(user);
+  user.user.save();
   if (!user) {
     res.status(404).json({ message: `couldn't find user with the given id` });
   }
@@ -108,17 +108,17 @@ const deleteById = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-const getUserById = async (req , res) => {
-    const id = req.params.id
+const getUserById = async (req, res) => {
+  const id = req.params.id;
 
-    try {
-        const user = await User.findById(id).populate('blogs')
-        if(!user){
-            return res.status(404).json({message : "no blogs found"})
-        }
-        return res.status(200).json({blogs : user})
-    } catch (error) {
-        console.log(error.message)
+  try {
+    const user = await User.findById(id).populate("blogs");
+    if (!user) {
+      return res.status(404).json({ message: "no blogs found" });
     }
-}
-export { getAllBlogs, addBlog, updateBlog, getById, deleteById , getUserById};
+    return res.status(200).json({ blogs: user });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export { getAllBlogs, addBlog, updateBlog, getById, deleteById, getUserById };
