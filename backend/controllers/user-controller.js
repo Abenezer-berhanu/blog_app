@@ -71,7 +71,7 @@ const login = async (req, res) => {
     if (!surePassword) {
       return res.status(400).json({ message: "Incorect password" });
     }
-    res.status(200).json({message: "Logged in"})
+    res.status(200).json({message: "Logged in" , user : emailExistance})
   } catch (error) {
     console.log(error);
   }

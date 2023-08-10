@@ -1,6 +1,7 @@
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddBlogs() {
   const [input, setinput] = useState({
@@ -9,6 +10,7 @@ export default function AddBlogs() {
     imageURL: "",
   });
 
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setinput((prev) => ({
       ...prev,
@@ -16,19 +18,20 @@ export default function AddBlogs() {
     }));
   };
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    
-    const res = await axios.post('http://localhost:5000/api/blogs/add', {
-      title : input.title,
-      description : input.description,
-      image : input.imageURL,
-      user : localStorage.getItem('user_id')
-    }).catch(err => console.log(err))
-    const data = await res.data
-  };
 
-  
+    const res = await axios
+      .post("http://localhost:5000/api/blogs/add", {
+        title: input.title,
+        description: input.description,
+        image: input.imageURL,
+        user: localStorage.getItem("user_id"),
+      })
+      .catch((err) => console.log(err));
+    const data = await res.data;
+    navigate("/blogs");
+  };
 
   const inputStyle = { fontSize: "1.2rem", color: "black", fontWeight: "bold" };
   return (
@@ -70,7 +73,12 @@ export default function AddBlogs() {
           onChange={handleChange}
           sx={inputStyle}
         />
-        <Button type="submit" onClick={handleClick} sx={{borderRadius : 5}} variant="contained" >
+        <Button
+          type="submit"
+          onClick={handleClick}
+          sx={{ borderRadius: 5 }}
+          variant="contained"
+        >
           Add Blog
         </Button>
       </Box>

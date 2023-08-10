@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Blog({ data , auth}) {
+export default function Blog({ data, auth }) {
   const date = data.createdAt.split("T")[0];
   const [isUser, setIsUser] = useState(auth);
   const id = localStorage.getItem("user_id");
@@ -37,12 +37,8 @@ export default function Blog({ data , auth}) {
   const handleDelete = async () => {
     const res = await axios
       .delete(`http://localhost:5000/api/blogs/${blog_id}`)
-      .then(() => 
-        navigate("/")
-      )
-      .then(() => 
-        navigate("/blogs")
-      )
+      .then(() => navigate("/"))
+      .then(() => navigate("/blogs"));
   };
 
   return (

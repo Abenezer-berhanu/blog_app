@@ -5,7 +5,7 @@ import User from "../models/User.js";
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 const getAllBlogs = async (req, res) => {
-  const blogs = await Blog.find({});
+  const blogs = await Blog.find({}).populate('user');
   try {
     if (!blogs) {
       res.status(404).json({ message: "No user Found" });
@@ -97,8 +97,6 @@ const deleteById = async (req, res) => {
   const id = req.params.id;
 
   const user = await Blog.findByIdAndRemove(id).populate("user");
-  await user.user.blogs.pull(user);
-  user.user.save();
   if (!user) {
     res.status(404).json({ message: `couldn't find user with the given id` });
   }

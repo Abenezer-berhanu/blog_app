@@ -9,17 +9,18 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
   const [value, setValue] = useState();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+    localStorage.removeItem("user_id");
+  };
   return (
     <AppBar position="sticky">
       <Toolbar>

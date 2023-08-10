@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function BlogDetail() {
   const [blogs, setBlogs] = useState();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
   const fetchApi = async () => {
     const res = await axios
@@ -31,24 +31,25 @@ export default function BlogDetail() {
       setBlogs(data.user);
       setinput({
         title: data.user.title,
-        description : data.user.description
+        description: data.user.description,
       });
     });
   }, [id]);
   console.log(blogs);
 
-  const editBlog = async() => {
-    const res = await axios.patch(`http://localhost:5000/api/blogs/update/${id}`, {
-      title : input.title,
-      description : input.description
-    })
-    .catch(err => console.log(err))
-  }
+  const editBlog = async () => {
+    const res = await axios
+      .patch(`http://localhost:5000/api/blogs/update/${id}`, {
+        title: input.title,
+        description: input.description,
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
-    editBlog()
-    navigate('/blogs')
+    editBlog();
+    navigate("/blogs");
   };
   return (
     <div>
@@ -82,7 +83,7 @@ export default function BlogDetail() {
           onChange={handleChange}
           sx={inputStyle}
         />
-        
+
         <Button
           type="submit"
           onClick={handleClick}
