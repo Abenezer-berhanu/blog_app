@@ -34,7 +34,7 @@ export default function Header() {
                 setValue(val);
               }}
             >
-              <Tab LinkComponent={Link} to="/blogs" label="All Blogs" tabIndex={1}/>
+              <Tab LinkComponent={Link} to="/blogs" label="All Blogs" tabIndex={0}/>
               <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
               <Tab LinkComponent={Link} to="/myBlogs/add" label="Add Blogs" />
             </Tabs>
