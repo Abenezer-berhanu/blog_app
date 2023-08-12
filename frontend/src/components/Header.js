@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ export default function Header() {
                 setValue(val);
               }}
             >
-              <Tab LinkComponent={Link} to="/blogs" label="All Blogs" />
+              <Tab LinkComponent={Link} to="/blogs" label="All Blogs" tabIndex={1}/>
               <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
               <Tab LinkComponent={Link} to="/myBlogs/add" label="Add Blogs" />
             </Tabs>

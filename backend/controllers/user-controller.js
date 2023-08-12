@@ -77,4 +77,13 @@ const login = async (req, res) => {
   }
 };
 
-export { getAll, signup, login };
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const getUserById = async(req ,res) => {
+  const {id} = req.params
+  const result = await User.findById(id)
+  res.status(200).json({result})
+}
+
+export { getAll, signup, login, getUserById };
