@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+
 import validator from "validator";
 import bcrypt from "bcrypt";
 
@@ -39,7 +40,7 @@ const signup = async (req, res) => {
   try {
     const emailExistance = await User.findOne({ email });
     if (emailExistance) {
-      res.status(400).json({ message: `email already registerd` });
+      res.status(400).json({ message: `email already registered` });
     }
     
     const user = await User.create({
@@ -64,12 +65,12 @@ const login = async (req, res) => {
     const emailExistance = await User.findOne({ email });
 
     if (!emailExistance) {
-      return res.status(404).json({ message: `couldn't find email` });
+      return res.status(404).json({ message: `Invalid Email` });
     }
 
     const surePassword = await bcrypt.compare(password , emailExistance.password)
     if (!surePassword) {
-      return res.status(400).json({ message: "Incorect password" });
+      return res.status(400).json({ message: "Incorrect password" });
     }
     res.status(200).json({message: "Logged in" , user : emailExistance})
   } catch (error) {
