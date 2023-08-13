@@ -8,13 +8,17 @@ import blogRouter from './routes/blog.js'
 
 const app = express();
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin : ['https://deploy-mern-lwhq.vercel.app'],
+  methods : ['POST','GET','PATCH','DELETE'],
+  credentials : true
+}))
 dotenv.config();
 
 app.use("/", router);
 app.use("/api/blogs", blogRouter )
 
-mongoose.connect(process.env.MONGO_URI).then(() =>
+mongoose.connect('mongodb+srv://Abenezer:abenu%40nati.b@cluster0.p1npdo1.mongodb.net/blog-app?retryWrites=true&w=majority').then(() =>
   app.listen(5000, () => {
     console.log(`connected to db`);
     console.log("listning to port 5000");
