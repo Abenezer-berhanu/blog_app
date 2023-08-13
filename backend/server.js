@@ -5,6 +5,13 @@ import cors from 'cors'
 //import from file
 import router from "./routes/user.js";
 import blogRouter from './routes/blog.js'
+import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
 
 const app = express();
 app.use(express.json())
@@ -24,7 +31,7 @@ if(process.env.NODE_ENV === 'production') {
   
 }
 
-mongoose.connect('mongodb+srv://Abenezer:abenu%40nati.b@cluster0.p1npdo1.mongodb.net/blog-app?retryWrites=true&w=majority').then(() =>
+mongoose.connect(process.env.MONGO_URI).then(() =>
   app.listen(5000, () => {
     console.log(`connected to db`);
     console.log("listning to port 5000");
