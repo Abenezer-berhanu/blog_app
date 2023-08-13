@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import { logout } from "../store";
-import {
-  AppBar,
-  Box,
-  Button,
-  Tabs,
-  Tab,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { AppBar, Box, Button, Tabs, Tab, Toolbar } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
   const [value, setValue] = useState(0);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -25,9 +16,8 @@ export default function Header() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        
         {isLoggedIn && (
-          <Box display="flex" >
+          <Box display="flex">
             <Tabs
               textColor="inherit"
               value={value}
@@ -36,8 +26,8 @@ export default function Header() {
               }}
               TabIndicatorProps={{
                 style: {
-                  backgroundColor: "#D97D54"
-                }
+                  backgroundColor: "#D97D54",
+                },
               }}
             >
               <Tab
@@ -46,8 +36,16 @@ export default function Header() {
                 label="All Blogs"
                 tabIndex={0}
               />
-              <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
-              <Tab LinkComponent={Link} to="/myBlogs/add" label="Add Blogs" />
+              <Tab
+                LinkComponent={Link}
+                to="/myBlogs"
+                label="My Blogs"
+              />
+              <Tab
+                LinkComponent={Link}
+                to="/myBlogs/add"
+                label="Add Blogs"
+              />
             </Tabs>
           </Box>
         )}
