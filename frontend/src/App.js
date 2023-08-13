@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Blogs from "./components/Blogs";
 import Auth from "./components/Auth";
@@ -11,12 +11,14 @@ import { login } from "./store";
 import { useDispatch } from "react-redux";
 
 function App() {
+  const path = useLocation()
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem("user_id")) {
       dispatch(login());
     }
+    console.log(path.pathname)
   }, [dispatch]);
   return (
     <div>

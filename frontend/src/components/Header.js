@@ -9,13 +9,14 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -24,17 +25,27 @@ export default function Header() {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Typography variant="h4">BlogsApp</Typography>
+        
         {isLoggedIn && (
-          <Box display="flex" margin="auto">
+          <Box display="flex" >
             <Tabs
               textColor="inherit"
               value={value}
               onChange={(e, val) => {
                 setValue(val);
               }}
+              TabIndicatorProps={{
+                style: {
+                  backgroundColor: "#D97D54"
+                }
+              }}
             >
-              <Tab LinkComponent={Link} to="/blogs" label="All Blogs" />
+              <Tab
+                LinkComponent={Link}
+                to="/blogs"
+                label="All Blogs"
+                tabIndex={0}
+              />
               <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
               <Tab LinkComponent={Link} to="/myBlogs/add" label="Add Blogs" />
             </Tabs>
@@ -51,15 +62,6 @@ export default function Header() {
                 to="/auth"
               >
                 Login
-              </Button>
-              <Button
-                variant="contained"
-                color="warning"
-                sx={{ borderRadius: 10 }}
-                LinkComponent={Link}
-                to="/auth"
-              >
-                Signup
               </Button>
             </>
           )}
