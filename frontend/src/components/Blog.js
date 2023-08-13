@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import { Box, IconButton } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -16,6 +16,8 @@ export default function Blog({ data, auth, myKey }) {
   const date = data.createdAt.split("T")[0];
   const [user_name, setUserName] = useState("");
   const [isUser, setIsUser] = useState(auth);
+  const [readMore , setReadMore] = useState(false)
+  const [readMoreButton , setReadMoreButton] = useState(false)
   const id = localStorage.getItem("user_id");
   const userId = localStorage.getItem("user_id");
   const blog_id = data._id;
@@ -40,6 +42,10 @@ export default function Blog({ data, auth, myKey }) {
   useEffect(() => {
     authorization();
     userName().then((data) => setUserName(data.result.name));
+    if(data.description.length >= 70){
+      setReadMoreButton(true)
+      setReadMore(true)
+    }
   }, []);
 
   const handleEdit = async () => {
@@ -62,7 +68,8 @@ export default function Blog({ data, auth, myKey }) {
     <div key={Math.random()}>
       <Card
         sx={{
-          width: "40%",
+          maxWidth: "40%",
+          minWidth : "250px",
           margin: "1em auto",
           padding: "10px",
           boxShadow: "0px 0px 10px #ccc",
@@ -107,9 +114,24 @@ export default function Blog({ data, auth, myKey }) {
         <hr />
         <CardContent>
           
-          <Typography variant="body2" color="text.secondary">
+          {readMoreButton &&<Typography 
+          variant="body2"
+          color="text.secondary" 
+          overflow='hidden'
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          >
             {data.description}
-          </Typography>
+          </Typography>}
+        {!readMoreButton && <Typography 
+          variant="body2"
+          color="text.secondary" 
+          >
+            {data.description}
+          </Typography>}
+          {<>
+          {readMore && <Button sx={{fontSize: '.8rem', fontWeight : "bold"}} onClick={()=>{setReadMoreButton(!readMoreButton)}}>{readMoreButton ? "Read More" : "Read Less"}</Button>}
+          </>}
         </CardContent>
       </Card>
     </div>
